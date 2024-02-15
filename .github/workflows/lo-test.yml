@@ -281,16 +281,27 @@ jobs:
       - name: Generate firmware
         run: |
           sudo apt update && sudo apt install qemu-utils
+           echo "111"
           sudo sysctl vm.swappiness=0
+           echo "111"
           ulimit -SHn 65000
+           echo "111"
           curl -L https://github.com/stupidloud/sshactions/releases/download/cache/ib-$DEVICE.tar.xz | tar -Jxvf -
+           echo "111"
           set -x
+           echo "111"
           mv *imagebuilder* ib && cd ib
+           echo "111"
           . $GITHUB_WORKSPACE/scripts/merge_files.sh
+           echo "111"
           sed -i '/local/d;s/#//' files/etc/opkg/distfeeds.conf
+           echo "111"
           sed -i 's/luci-app-[^ ]*//g' include/target.mk $(find target/ -name Makefile)
+           echo "111"
           sed -i 's/$(OPKG) install $(BUILD_PACKAGES)/$(OPKG) install --force-overwrite $(BUILD_PACKAGES)/' Makefile
+           echo "111"
           ls packages/*.ipk | xargs -n1 basename > package.files
+           echo "111"
           PACKAGES=$(cat $GITHUB_WORKSPACE/$DEVICE.config.seed $GITHUB_WORKSPACE/common.seed | grep CONFIG_PACKAGE | grep '=y' | grep -v CONFIG_PACKAGE_luci-app | sed 's/CONFIG_PACKAGE_//;s/=y//' | xargs -ri grep -o {} package.files | sort -u | xargs echo)
           PACKAGES="$PACKAGES `grep -o luci-i18n-opkg-zh-cn package.files || true`"
           LUCI=$(cat $GITHUB_WORKSPACE/$DEVICE.config.seed $GITHUB_WORKSPACE/common.seed | grep CONFIG_PACKAGE_luci-app | grep '=y' | grep -v docker | sed 's/CONFIG_PACKAGE_//;s/=y//' | xargs -ri grep -o {} package.files | sort -u | xargs echo)
