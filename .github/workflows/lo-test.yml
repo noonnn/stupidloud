@@ -286,7 +286,13 @@ jobs:
            echo "112"
           ulimit -SHn 65000
            echo "1131"
-          curl -L https://github.com/stupidloud/sshactions/releases/download/cache/ib-$DEVICE.tar.xz | tar -Jxvf -
+          # curl -L https://github.com/stupidloud/sshactions/releases/download/cache/ib-$DEVICE.tar.xz | tar -Jxvf -
+            curl -L https://github.com/stupidloud/sshactions/releases/download/cache/lede.r2s.img.zst.01
+            curl -L https://github.com/stupidloud/sshactions/releases/download/cache/lede.r2s.img.zst.02
+            curl -L https://github.com/stupidloud/sshactions/releases/download/cache/lede.r2s.img.zst.03
+            cat lede.r2s.img.zst.01 lede.r2s.img.zst.02 lede.r2s.img.zst.03 > lede.r2s.img.zst
+            zstd -d lede.r2s.img.zst -o -
+            
            echo "1141"
           set -x
            echo "1151"
