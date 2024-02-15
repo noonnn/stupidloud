@@ -281,17 +281,17 @@ jobs:
       - name: Generate firmware
         run: |
           sudo apt update && sudo apt install qemu-utils
-           echo "111"
+           echo "11110"
           sudo sysctl vm.swappiness=0
-           echo "111"
+           echo "112"
           ulimit -SHn 65000
-           echo "111"
+           echo "1131"
           curl -L https://github.com/stupidloud/sshactions/releases/download/cache/ib-$DEVICE.tar.xz | tar -Jxvf -
-           echo "111"
+           echo "1141"
           set -x
-           echo "111"
+           echo "1151"
           mv *imagebuilder* ib && cd ib
-           echo "111"
+           echo "1161"
           . $GITHUB_WORKSPACE/scripts/merge_files.sh
            echo "111"
           sed -i '/local/d;s/#//' files/etc/opkg/distfeeds.conf
